@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>My-Bank</title>
+</head>
+<body>
+    
+    <div id="login_area">
+        <h1 class="text-center">Wellcome to My Bank</h1>
+        <div class="submit_area">
+            <h3>Login</h3>
+            <input class="form-control " type="email" placeholder="Enter your email"> <br>
+            <input class="form-control " type="password" placeholder="Password"> <br>
+            <button id="login" class="btn btn-success ">Enter</button>
+        </div>
+    </div>
+
+    <div id="transection-area">
+       <div class="row">
+           <div class="col-md-4">
+               <div class="diposit status">
+                    <h4>Diposit</h4>
+                    <h2>$ <span id="currentDiposit">00</span></h2>
+               </div>
+           </div>
+           <div class="col-md-4">
+               <div class="widraw status">
+                <h4>Widraw</h4>
+                <h2>$ <span id="currentWidraw">00</span></h2>
+               </div>
+           </div>
+           <div class="col-md-4">
+               <div class="balance status">
+                <h4>Balance</h4>
+                <h2>$ <span id="currentBalance">1200</span></h2>
+               </div>
+           </div>
+       </div>
+
+       <div class="row">
+           <div class="col-md-6">
+                <div class="submit_area">
+                    <h3>Diposit</h3>
+                    <input id="dipositAmount" type="text" class="form-control" placeholder="$ amount you want to diposit"><br>
+                    <button id="addDiposit" class="btn btn-success">Diposit</button>
+                </div>
+           </div>
+           <div class="col-md-6">
+               <div class="submit_area">
+                    <h3>Widraw</h3>
+                    <input id="widrawAmount" type="text" class="form-control" placeholder="$ amount you want to diposit"><br>
+                    <button id="addWidraw" class="btn btn-success">Widraw</button>
+               </div>
+           </div>
+       </div>
+    </div>
+
+    <script>
+        // login button event handler
+       document.getElementById('login').addEventListener('click', function(){
+        document.getElementById('login_area').style.display = 'none';
+        document.getElementById('transection-area').style.display = 'block';
+       })
+
+        // diposit button event handler  
+        document.getElementById("addDiposit").addEventListener('click', function(){
+            const dipositNumber = getInputNumber('dipositAmount');
+
+            updateSpanText("currentBalance", dipositNumber);
+            updateSpanText("currentDiposit", dipositNumber);
+
+            document.getElementById("dipositAmount").value = "";
+        })
+        // widraw button handler
+            document.getElementById('addWidraw').addEventListener('click', function(){
+                const widrawNumber = getInputNumber("widrawAmount");
+                
+                updateSpanText("currentWidraw", widrawNumber);
+                updateSpanText('currentBalance', -1 * widrawNumber);
+                document.getElementById("widrawAmount").value = "";
+            })
+
+
+
+        function getInputNumber (id){
+            const Amount = document.getElementById(id).value;
+            const amountNumber = parseFloat(Amount);
+            return amountNumber;
+        }
+
+        function updateSpanText(id, dipositNumber){
+            const current = document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current);
+            const total = dipositNumber + currentNumber;
+            document.getElementById(id).innerText = total;
+        }
+    </script>
+</body>
+</html>
