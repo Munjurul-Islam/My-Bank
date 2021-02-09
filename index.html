@@ -70,10 +70,16 @@
         document.getElementById("addDiposit").addEventListener('click', function(){
             const dipositNumber = getInputNumber('dipositAmount');
 
-            updateSpanText("currentBalance", dipositNumber);
-            updateSpanText("currentDiposit", dipositNumber);
+            if(dipositNumber < 0){
+                alert('diposit amount cannot be nagetive')
+            }
+            else{
+                updateSpanText("currentBalance", dipositNumber);
+                updateSpanText("currentDiposit", dipositNumber);
 
-            document.getElementById("dipositAmount").value = "";
+                document.getElementById("dipositAmount").value = "";
+            }
+           
         })
         // widraw button handler
             document.getElementById('addWidraw').addEventListener('click', function(){
